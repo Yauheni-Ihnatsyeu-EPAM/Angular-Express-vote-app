@@ -16,38 +16,41 @@ export class CandidateService {
     constructor(private http: Http) { }
 
     getCandidates(): Promise<Candidate[]> {
-        return this.http.get('/candidates/')
+        return this.http.get(this.candidateUrl)
             .toPromise()
             .then(res => res.json() as Candidate[])
             .catch(this.handleError);
     };
 
-    getCandidate(id: number): Promise<Candidate[]> {
-        return this.http.get('/candidates/')
+    getCandidate(id: number): Promise<Candidate> {
+        const url = `${this.candidateUrl}/${id}`;
+        return this.http.get(url)
             .toPromise()
             .then(res => res.json() as Candidate[])
             .catch(this.handleError);
     };
 
-    addCandidate(name: string): Promise<Candidate[]> {
+    addCandidate(name: string): Promise<Candidate> {
+        console.log(name);
+        const url = `${this.candidateUrl}/${name}`;
         return this.http.post(this.candidateUrl, JSON.stringify({ name: name }), { headers: this.headers })
             .toPromise()
-            .then(res => res.json() as Candidate[])
+            .then(res => res.json() as Candidate)
             .catch(this.handleError);
     };
-    updateCandidate(candidate: Candidate): Promise<Candidate[]> {
+    updateCandidate(candidate: Candidate): Promise<Candidate> {
         const url = `${this.candidateUrl}/${candidate.id}`;
         return this.http.put(url, JSON.stringify(Candidate), { headers: this.headers })
             .toPromise()
-            .then(res => res.json() as Candidate[])
+            .then(res => res.json() as Candidate)
             .catch(this.handleError);
     };
 
-    deleteCandidate(id: number): Promise<Candidate[]> {
+    deleteCandidate(id: number): Promise<Candidate> {
         const url = `${this.candidateUrl}/${id}`;
         return this.http.delete(url, { headers: this.headers })
             .toPromise()
-            .then(res => res.json() as Candidate[])
+            .then(res => res.json() as Candidate)
             .catch(this.handleError);
     };
         

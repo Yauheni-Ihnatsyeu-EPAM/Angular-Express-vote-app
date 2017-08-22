@@ -11,22 +11,20 @@ import { Candidate } from './candidate';
 })
 
 export class AppComponent {
-  @Input() title = 'Ololo';
-  
+    
   selectedCandidate: Candidate;
   candidates: Candidate[];
+  @Input() id: number;
+  @Input() name: string;
 
   constructor(private candidateService: CandidateService) { }
 
-  getVotes(): void {    
+  getCandidates(): void {    
     this.candidateService.getCandidates()
     .then(response => this.candidates = response);
   }
 
-  
-
-  add(name: string): void {
-    name = name.trim();
+  addCandidate(name: string): void {
     if (!name) { return; }
     this.candidateService.addCandidate(name)
       .then(candidate => {
@@ -35,7 +33,7 @@ export class AppComponent {
       });
   }
 
-  delete(candidate: Candidate): void {
+  deleteCandidate(candidate: Candidate): void {
     this.candidateService
         .deleteCandidate(candidate.id)
         .then(() => {
@@ -46,6 +44,6 @@ export class AppComponent {
 
 
   ngOnInit(): void {
-    this.getVotes();
+    this.getCandidates();
   }
 }

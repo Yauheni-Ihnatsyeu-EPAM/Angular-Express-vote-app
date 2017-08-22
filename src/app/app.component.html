@@ -1,14 +1,14 @@
-<input #title />
+<input #name />
 
-<button (click)="getVotes()">Get Votes</button>
+<button (click)="addCandidate(name.value)">add</button>
 
-<button (click)="showCandidates()">show Candidates</button>
+<button (click)="deleteCandidate(id)">delete</button>
 
 <h2>Candidates</h2>
 <ul class="candidates">
     <li *ngFor="let candidate of candidates">
         <span class="badge">{{candidate.id}}</span>
         <span>{{candidate.name}}</span>
-        <button class="delete" (click)="delete(hero); $event.stopPropagation()">x</button>
+        <button class="delete" (click)="deleteCandidate(candidate); $event.stopPropagation()">x</button>
     </li>
 </ul>

@@ -22,13 +22,14 @@ router.get('/:id', function(req, res, next) {
     });
 });
 
-router.post('/:name', function(req, res, next) {
-    queries.addCandidate(req.params.name, (err, response) => {
+router.post('/', function(req, res, next) {
+    queries.addCandidate(req.body.name, (err, response) => {
         if (err) {
             res.status(404);
             next();
         };
-        res.status(201).json(response);
+        console.log(response);
+        res.status(201).json({ id: response.insertId, name: req.body.name });
     });
 });
 
