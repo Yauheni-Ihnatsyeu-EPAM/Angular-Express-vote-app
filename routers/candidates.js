@@ -29,7 +29,7 @@ router.post('/', function(req, res, next) {
             next();
         };
         console.log(response);
-        res.status(201).json({ id: response.insertId, name: req.body.name });
+        res.status(201).json(req.body);
     });
 });
 
@@ -43,13 +43,14 @@ router.delete('/:id', function(req, res, next) {
     });
 });
 
-router.put('/:id/:name', function(req, res, next) {
-    queries.updateCandidates(req.params.id, req.params.name, (err, response) => {
+router.put('/:id', function(req, res, next) {
+    queries.updateCandidates(req.body.id, req.body.name, (err, response) => {
         if (err) {
             res.status(404);
             next();
         };
-        res.status(200).json(response);
+        console.log(req.body);
+        res.status(200).json(req.body);
     });
 });
 

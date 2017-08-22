@@ -12,12 +12,15 @@ import { Candidate } from './candidate';
 
 export class AppComponent {
     
-  selectedCandidate: Candidate;
+  @Input() selectedCandidate: Candidate;
   candidates: Candidate[];
-  @Input() id: number;
-  @Input() name: string;
+  
 
   constructor(private candidateService: CandidateService) { }
+
+  onSelect(candidate: Candidate): void {
+    this.selectedCandidate = candidate;
+  }
 
   getCandidates(): void {    
     this.candidateService.getCandidates()
@@ -40,6 +43,11 @@ export class AppComponent {
           this.candidates = this.candidates.filter(h => h !== candidate);
           if (this.selectedCandidate === candidate) { this.selectedCandidate = null; }
         });
+  }
+
+  saveCandidate(): void {
+    console.log(this.selectedCandidate);
+    this.candidateService.updateCandidate(this.selectedCandidate);
   }
 
 

@@ -40,7 +40,7 @@ export class CandidateService {
     };
     updateCandidate(candidate: Candidate): Promise<Candidate> {
         const url = `${this.candidateUrl}/${candidate.id}`;
-        return this.http.put(url, JSON.stringify(Candidate), { headers: this.headers })
+        return this.http.put(url, JSON.stringify(candidate), { headers: this.headers })
             .toPromise()
             .then(res => res.json() as Candidate)
             .catch(this.handleError);
@@ -55,7 +55,7 @@ export class CandidateService {
     };
         
     private handleError(error: any): Promise<any> {
-        console.error('An error occurred', error); // for demo purposes only
+        //console.error('An error occurred', error); // for demo purposes only
         return Promise.reject(error.message || error);
     }
 }

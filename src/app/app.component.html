@@ -4,11 +4,20 @@
 
 <button (click)="deleteCandidate(id)">delete</button>
 
+
+
 <h2>Candidates</h2>
 <ul class="candidates">
-    <li *ngFor="let candidate of candidates">
+    <li *ngFor="let candidate of candidates" (click)="onSelect(candidate)" [class.selected]="candidate === selectedCandidate">
         <span class="badge">{{candidate.id}}</span>
         <span>{{candidate.name}}</span>
         <button class="delete" (click)="deleteCandidate(candidate); $event.stopPropagation()">x</button>
     </li>
 </ul>
+
+
+
+<div *ngIf="selectedCandidate">
+    <input [(ngModel)]="selectedCandidate.name" placeholder="name" />
+    <button (click)="saveCandidate()">save</button>
+</div>
